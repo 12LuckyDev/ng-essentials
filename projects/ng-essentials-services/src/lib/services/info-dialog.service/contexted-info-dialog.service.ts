@@ -10,14 +10,10 @@ export class ContextedInfoDialogService<C extends {} = {}>
     super(context);
   }
 
-  public open(
-    title: string,
-    description: string,
-    config?: C
-  ): Observable<void> {
+  public open(title: string, message: string, config?: C): Observable<void> {
     return this._baseService.open(
       this.contextualize(title),
-      this.contextualize(description),
+      this.contextualize(message),
       config
     );
   }

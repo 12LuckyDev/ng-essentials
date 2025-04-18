@@ -13,14 +13,10 @@ export class ContextedConfirmDialogService<C extends {} = {}>
     super(context);
   }
 
-  public open(
-    title: string,
-    description: string,
-    config?: C
-  ): Observable<boolean> {
+  public open(title: string, message: string, config?: C): Observable<boolean> {
     return this._baseService.open(
       this.contextualize(title),
-      this.contextualize(description),
+      this.contextualize(message),
       config
     );
   }
@@ -31,12 +27,12 @@ export class ContextedConfirmDialogService<C extends {} = {}>
 
   public confirm(
     title: string,
-    description: string,
+    message: string,
     config?: C | undefined
   ): Observable<void> {
     return this._baseService.confirm(
       this.contextualize(title),
-      this.contextualize(description),
+      this.contextualize(message),
       config
     );
   }

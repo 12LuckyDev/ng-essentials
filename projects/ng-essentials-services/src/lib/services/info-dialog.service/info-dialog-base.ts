@@ -16,7 +16,7 @@ export abstract class InfoDialogBase<C extends {} = {}>
 
   public abstract open(
     title: string,
-    description: string,
+    message: string,
     config?: C
   ): Observable<void>;
 

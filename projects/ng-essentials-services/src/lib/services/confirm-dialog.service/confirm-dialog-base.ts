@@ -16,7 +16,7 @@ export abstract class ConfirmDialogBase<C extends {} = {}>
 
   public abstract open(
     title: string,
-    description: string,
+    message: string,
     config?: C
   ): Observable<boolean>;
 
@@ -30,10 +30,10 @@ export abstract class ConfirmDialogBase<C extends {} = {}>
 
   public confirm(
     title: string,
-    description: string,
+    message: string,
     config?: C | undefined
   ): Observable<void> {
-    return this.open(title, description, config).pipe(
+    return this.open(title, message, config).pipe(
       filter((confirmed) => confirmed),
       switchMap(() => of(void 0))
     );
