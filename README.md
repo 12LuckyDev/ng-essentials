@@ -1,4 +1,4 @@
-# @12luckydev/NgEssentials
+# @12luckydev/ng-essentials-services
 
 Collection of abstract classes to build 'smart' services for toasts, info and confirm dialogs.
 
