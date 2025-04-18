@@ -1,11 +1,16 @@
 export abstract class Contexted {
-	private _translateContext: string;
+  private _translateContext: string;
 
-	constructor(context: string) {
-		this._translateContext = context.endsWith('.') ? context : `${context}.`;
-	}
+  constructor(context: string) {
+    this._translateContext = context.endsWith('.') ? context : `${context}.`;
+  }
 
-	protected contextualize(key: string): string {
-		return `${this._translateContext}${key}`;
-	}
+  /**
+   * Add context (prefix) to given key
+   * @param key value to contextualize
+   * @returns contextualized key
+   */
+  protected contextualize(key: string): string {
+    return `${this._translateContext}${key}`;
+  }
 }

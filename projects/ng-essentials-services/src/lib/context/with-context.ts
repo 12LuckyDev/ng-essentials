@@ -1,3 +1,7 @@
 export interface WithContext<T> {
-	withContext(context: string): T;
+  /**
+   * Contextualize the whole service
+   * @param context prefix which musy be apply to all keys in service
+   */
+  withContext(context: string): T;
 }
