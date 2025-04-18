@@ -1,63 +1,92 @@
-# NgEssentialsServices
+# @12luckydev/ng-essentials-services
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
+Collection of abstract classes to build 'smart' services for toasts, info and confirm dialogs. Makes it easier to use these features with internationalization
 
-## Code scaffolding
+What do i mean by 'smart'?
+Instead of providing e.g. for Toast the title and message body text, you can provide only the primary key for the translation.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+So instead od this:
 
-```bash
-ng generate component component-name
+```javascript
+this._toastService.success("COMMON.SUCCESS.TITLE", "COMMON.SUCCESS.MESSAGE");
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+You can use that:
 
-```bash
-ng generate --help
+```javascript
+this._toastService.smartSuccess("COMMON.SUCCESS");
 ```
 
-## Building
+'Smart' method will add 'TITLE' and 'MESSAGE' (or any other values ​​depending on the configuration) to primary key and pass it to orginal success method.
 
-To build the library, run:
+## configuration
 
-```bash
-ng build ng-essentials-services
+The passed parameters "title" and "message" in the 'toast', 'info' and 'confirm' subobjects are more important than those passed in the root of config object.
+
+```javascript
+import { NG_ESSENTIALS_SERVICES } from "@12luckydev/ng-essentials-services";
+
+providers: [
+  {
+    provide: NG_ESSENTIALS_SERVICES,
+    useFactory: () => ({
+      title: "title",
+      message: "message",
+      toast: {
+        success: "success",
+        error: "error",
+      },
+    }),
+  },
+];
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+## Contexted service
 
-### Publishing the Library
+Thanks to context services, calls with long keys do not take up half the screen :)
 
-Once the project is built, you can publish your library by following these steps:
+```javascript
+class Component{
+    private _toastService = inject(ToastService);
 
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/ng-essentials-services
-   ```
+    showToast(){
+        this._toastService.success("VERY.LONG.I18N.KEY.COMMON.SUCCESS.TITLE", "VERY.LONG.I18N.KEY.COMMON.SUCCESS.MESSAGE");
+    }
 
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+    private _contextedToastService = inject(ToastService).withContext("VERY.LONG.I18N.KEY.COMMON");
 
-## Running unit tests
+    showContextedToast(){
+        this._contextedToastService.success("SUCCESS.TITLE", "SUCCESS.MESSAGE");
+        // or even shorter
+        this._contextedToastService.smartSuccess("SUCCESS");
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+    }
+}
 ```
 
-## Running end-to-end tests
+## Toast service base
 
-For end-to-end (e2e) testing, run:
+| Abstraction name        | Description                                                                                                      |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `ToastBaseMethods`      | Interface with methods definitions for toasts service                                                            |
+| `ToastBase`             | Base class with smart methods implementation                                                                     |
+| `ContextedToastService` | A class that contains the context and passes it to the base class. Useful for services that support translations |
+| `ToastBaseWithContext`  | Base class with smart methods implementation and context support                                                 |
 
-```bash
-ng e2e
-```
+## Confirm Dialog service base
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Abstraction name                | Description                                                                                                      |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `ConfirmDialogBaseMethods`      | Interface with methods definitions for confirm dialog service                                                    |
+| `ConfirmDialogBase`             | Base class with smart methods implementation                                                                     |
+| `ContextedConfirmDialogService` | A class that contains the context and passes it to the base class. Useful for services that support translations |
+| `ConfirmDialogBaseWithContext`  | Base class with smart methods implementation and context support                                                 |
 
-## Additional Resources
+## Info Dialog service base
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+| Abstraction name             | Description                                                                                                      |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `InfoDialogBaseMethods`      | Interface with methods definitions for info dialog service                                                       |
+| `InfoDialogBase`             | Base class with smart methods implementation                                                                     |
+| `ContextedInfoDialogService` | A class that contains the context and passes it to the base class. Useful for services that support translations |
+| `InfoDialogBaseWithContext`  | Base class with smart methods implementation and context support                                                 |
