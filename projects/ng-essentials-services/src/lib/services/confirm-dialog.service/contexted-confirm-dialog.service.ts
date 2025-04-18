@@ -28,4 +28,20 @@ export class ContextedConfirmDialogService<C extends {} = {}>
   public smartOpen(key: string, config?: C): Observable<boolean> {
     return this._baseService.smartOpen(this.contextualize(key), config);
   }
+
+  public confirm(
+    title: string,
+    description: string,
+    config?: C | undefined
+  ): Observable<void> {
+    return this._baseService.confirm(
+      this.contextualize(title),
+      this.contextualize(description),
+      config
+    );
+  }
+
+  public smartConfim(key: string, config?: C | undefined): Observable<void> {
+    return this._baseService.smartConfim(this.contextualize(key), config);
+  }
 }
