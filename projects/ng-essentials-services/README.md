@@ -19,7 +19,7 @@ this._toastService.smartSuccess("COMMON.SUCCESS");
 
 'Smart' method will add 'TITLE' and 'MESSAGE' (or any other values ​​depending on the configuration) to primary key and pass it to orginal success method.
 
-## configuration
+## Configuration
 
 The passed parameters "title" and "message" in the 'toast', 'info' and 'confirm' subobjects are more important than those passed in the root of config object.
 
