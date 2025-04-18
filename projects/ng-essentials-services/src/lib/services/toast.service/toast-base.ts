@@ -26,6 +26,14 @@ export abstract class ToastBase<C extends {} = {}>
 
   public abstract error(title: string, message: string, config?: C): void;
 
+  public smartOpen(key: string, config?: C | undefined): void {
+    this.open(
+      `${key}.${this._settings.title}`,
+      `${key}.${this._settings.message}`,
+      config
+    );
+  }
+
   public smartSuccess(key: string, config?: C): void {
     this.success(
       `${key}.${this._settings.title}`,

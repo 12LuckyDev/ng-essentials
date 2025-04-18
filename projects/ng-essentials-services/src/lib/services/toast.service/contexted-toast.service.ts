@@ -17,6 +17,10 @@ export class ContextedToastService<C extends {} = {}>
     );
   }
 
+  public smartOpen(key: string, config?: C | undefined): void {
+    this._baseService.smartOpen(this.contextualize(key), config);
+  }
+
   public success(title: string, message: string, config?: C): void {
     this._baseService.success(
       this.contextualize(title),

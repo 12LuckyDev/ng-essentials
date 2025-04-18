@@ -32,6 +32,13 @@ export interface ToastBaseMethods<C extends {} = {}> {
   error(title: string, message: string, config?: C): void;
 
   /**
+   * Open toast smarted way, build title and message based on key and config token
+   * @param key Prefix to keys of title and message
+   * @param config Optional config
+   */
+  smartOpen(key: string, config?: C): void;
+
+  /**
    * Open success toast smarted way, build title and message based on key and config token
    * @param key Prefix to keys of title and message
    * @param config Optional config
