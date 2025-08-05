@@ -1,5 +1,5 @@
-import { DEFAULT_SETTINGS } from '../../settings-token/default-settings';
-import { NgEssentialsServicesSettings } from '../../settings-token/settings.model';
+import { DEFAULT_SETTINGS } from '../../settings-token/models/default-settings';
+import { NgEssentialsServicesSettings } from '../../settings-token/models/settings.model';
 
 export const buildConfirmDialogSettings = (
   settings: NgEssentialsServicesSettings

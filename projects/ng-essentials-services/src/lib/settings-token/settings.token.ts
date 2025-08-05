@@ -1,9 +1,13 @@
 import { InjectionToken } from '@angular/core';
-import { DEFAULT_SETTINGS } from './default-settings';
-import { NgEssentialsServicesSettings } from './settings.model';
+import { DEFAULT_SETTINGS } from './models/default-settings';
+import { NgEssentialsServicesFullSettings } from './models/full-settings.model';
+import { buildFullSettings } from './builders/build-full-settings';
 
 export const NG_ESSENTIALS_SERVICES =
-  new InjectionToken<NgEssentialsServicesSettings>('NG_ESSENTIALS_SERVICES', {
-    providedIn: 'root',
-    factory: () => DEFAULT_SETTINGS,
-  });
+  new InjectionToken<NgEssentialsServicesFullSettings>(
+    'NG_ESSENTIALS_SERVICES',
+    {
+      providedIn: 'root',
+      factory: () => buildFullSettings(DEFAULT_SETTINGS),
+    }
+  );

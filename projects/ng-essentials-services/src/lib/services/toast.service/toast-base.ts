@@ -1,22 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { ToastBaseMethods } from './toast-base-methods';
 import { NG_ESSENTIALS_SERVICES } from '../../settings-token/settings.token';
-import { buildToastSettings } from './build-toast-settings';
+import { ToastSettings } from '../../settings-token/models/toast-settings.model';
 
 @Injectable()
 export abstract class ToastBase<C extends {} = {}>
   implements ToastBaseMethods<C>
 {
-  private _settings: {
-    title: string;
-    message: string;
-    success: string;
-    error: string;
-  };
-
-  constructor() {
-    this._settings = buildToastSettings(inject(NG_ESSENTIALS_SERVICES));
-  }
+  private _settings: ToastSettings = inject(NG_ESSENTIALS_SERVICES).toast;
 
   public abstract open(title: string, message: string, config?: C): void;
 

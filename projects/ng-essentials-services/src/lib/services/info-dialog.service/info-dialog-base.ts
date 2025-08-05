@@ -1,18 +1,14 @@
 import { Observable } from 'rxjs';
 import { InfoDialogBaseMethods } from './info-dialog-base-methods';
 import { inject, Injectable } from '@angular/core';
-import { buildInfoDialogSettings } from './build-info-dialog-settings';
 import { NG_ESSENTIALS_SERVICES } from '../../settings-token/settings.token';
+import { DialogSettings } from '../../settings-token/models/dialog-settings.model';
 
 @Injectable()
 export abstract class InfoDialogBase<C extends {} = {}>
   implements InfoDialogBaseMethods<C>
 {
-  private _settings: { title: string; message: string };
-
-  constructor() {
-    this._settings = buildInfoDialogSettings(inject(NG_ESSENTIALS_SERVICES));
-  }
+  private _settings: DialogSettings = inject(NG_ESSENTIALS_SERVICES).info;
 
   public abstract open(
     title: string,
