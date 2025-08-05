@@ -1,6 +1,6 @@
 # @12luckydev/ng-essentials-services
 
-Collection of abstract classes to build 'smart' services for toasts, info and confirm dialogs. Makes it easier to use these features with internationalization
+Collection of abstract classes to build 'smart' services for toasts, info and confirm dialogs. Makes it easier to use these features with internationalization. Assuming that your dialogs and toasts always have a title and a message :D.
 
 What do i mean by 'smart'?
 Instead of providing e.g. for Toast the title and message body text, you can provide only the primary key for the translation.
@@ -24,22 +24,42 @@ this._toastService.smartSuccess("COMMON.SUCCESS");
 The passed parameters "title" and "message" in the 'toast', 'info' and 'confirm' subobjects are more important than those passed in the root of config object.
 
 ```javascript
-import { NG_ESSENTIALS_SERVICES } from "@12luckydev/ng-essentials-services";
+import { provideNgEssentialsServices } from "@12luckydev/ng-essentials-services";
+
+providers: [
+  provideNgEssentialsServices({
+    title: "title",
+    message: "message",
+    toast: {
+      success: "success",
+      error: "error",
+    },
+  }),
+];
+```
+
+OR
+
+```javascript
+import { NG_ESSENTIALS_SERVICES, buildFullSettings } from "@12luckydev/ng-essentials-services";
 
 providers: [
   {
     provide: NG_ESSENTIALS_SERVICES,
-    useFactory: () => ({
-      title: "title",
-      message: "message",
-      toast: {
-        success: "success",
-        error: "error",
-      },
-    }),
+    useFactory: () =>
+      buildFullSettings({
+        title: "title",
+        message: "message",
+        toast: {
+          success: "success",
+          error: "error",
+        },
+      }),
   },
 ];
 ```
+
+buildFullSettings function will build full settings model based on provided partial model.
 
 ## Contexted service
 
